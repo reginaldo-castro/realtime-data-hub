@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     
     #apps
     'health',
+    'data_ingestion'
 ]
 
 MIDDLEWARE = [
