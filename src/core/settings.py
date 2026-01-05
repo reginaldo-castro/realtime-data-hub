@@ -10,8 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-from pathlib import Path
 import os
+from pathlib import Path
+from datetime import timedelta
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -42,7 +43,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     
+    #apps
     'health',
 ]
 
@@ -128,3 +131,38 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_THROTTLE_CLASSES': (
+        'rest_framework.throttling.UserRateThrottle',
+        'rest_framework.throttling.AnonRateThrottle',
+    ),
+    'DEFAULT_THROTTLE_RATES': {
+        'user': '1000/day',
+        'anon': '100/day',
+    },
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    #'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    #'ROTATE_REFRESH_TOKENS': False,
+    #'BLACKLIST_AFTER_ROTATION': True,
+    #'ALGORITHM': 'HS256',
+    #'SIGNING_KEY': SECRET_KEY,
+    #'VERIFYING_KEY': None,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    #'USER_ID_FIELD': 'id',
+    #'USER_ID_CLAIM': 'user_id',
+}   
+
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+CSRF_COOKIE_SECURE =  False # True em producao
+SESSION_COOKIE_SECURE = False # True em producao
