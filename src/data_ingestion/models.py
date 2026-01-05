@@ -10,8 +10,8 @@ class DataJob(models.Model):
         ('ERROR', 'Error'),
     )
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.foreignKey(User, on_delete=models.CASCADE)
-    fiel = models.FileField(upload_to='uploads/')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    file = models.FileField(upload_to='uploads/')
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='PENDING')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
