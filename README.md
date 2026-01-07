@@ -18,6 +18,11 @@ Sistema backend para ingestão de dados, processamento assíncrono e comunicaç�
 - Atualizações em tempo real
 - APIs documentadas
 
+## CI/CD
+O projeto utiliza GitHub Actions para:
+- Execução automática de testes
+- Garantia de qualidade antes do deploy
+
 ## Executando Localmente
 ```bash
 docker compose -f docker/docker-compose.yml up --build
