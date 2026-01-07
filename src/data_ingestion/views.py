@@ -13,7 +13,7 @@ from drf_spectacular.utils import extend_schema
 
 
 @extend_schema(
-    sumary='Ingestão de dados',
+    summary='Ingestão de dados',
     description = 'Endpoint para upload de arquivos e criação de jobs de processamento.'
 )
 class DataingestionView(APIView):
