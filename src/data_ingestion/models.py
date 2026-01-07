@@ -18,3 +18,9 @@ class DataJob(models.Model):
     
     def __str__(self):
         return f" {self.id} - {self.status}"
+
+    
+    class Meta:
+        indexes = [
+            models.Index(fields=['user', 'created_at']),
+        ]
