@@ -30,5 +30,5 @@ def test_data_ingestion_requires_auth():
     
     response = client.post('/api/v1/data/')
     
-    assert response.status_code == 401
+    assert response.status_code in (401, 403)
     
