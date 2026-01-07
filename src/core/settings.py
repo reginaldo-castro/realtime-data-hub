@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'django_celery_results',
     'channels',
+    'drf_spectacular',
     #apps
     'health',
     'data_ingestion'
@@ -150,6 +151,7 @@ REST_FRAMEWORK = {
         'user': '1000/day',
         'anon': '100/day',
     },
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 SIMPLE_JWT = {
@@ -193,4 +195,10 @@ CACHES = {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
         },
     }
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Realtime Data Hub API',
+    'DESCRIPTION': 'API para ingestão, processamento assíncrono e monitoramento em tempo real.',
+    'VERSION': '1.0.0',
 }
