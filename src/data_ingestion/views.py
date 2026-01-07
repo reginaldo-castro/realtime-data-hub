@@ -1,3 +1,5 @@
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -30,3 +32,27 @@ class DataingestionView(APIView):
                 
         serializer = DataJobSerializer(job)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+class DataJobPagination(PageNumberPagination):
+    page_size = 10
+    max_page_size = 100
+    page_size_query_param = 'page_size'
+
+
+@method_decorator(cache_page(60 * 2), name='dispatch')
+class DataJobListView(ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = DataJobSerializer
+    pagination_class = DataJobPagination
+    
+    def get_queryset(self):
+        return DataJob.objects.filter(user=self.request.user).order_by('-created_at')
+    
+
+class DataJobDetailView(RetrieveAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = DataJobSerializer
+    
+    def get_queryset(self):
+        return DataJob.objects.filter(user=self.request.user)
