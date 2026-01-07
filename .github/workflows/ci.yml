@@ -31,5 +31,6 @@ jobs:
       - name: Run Tests
         env:
           DJANGO_SETTINGS_MODULE: core.settings
+          PYTHONPATH: src
         run: |
           pytest
